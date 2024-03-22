@@ -1,0 +1,9 @@
+.root{
+    width: 100vw;
+    display: flex;
+    flex-wrap: wrap;
+    .block{
+        width: 50%;
+        height: 300px;
+    }
+}

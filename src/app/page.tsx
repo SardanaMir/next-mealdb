@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import styles from './page.module.css'
+import styles from './page.module.scss'
 import Layout from '@/components/Layout'
 
 export default function Home() {

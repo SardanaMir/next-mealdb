@@ -1,6 +1,7 @@
-import { useEffect } from "react";
+import { useRef } from "react";
 import axios from "axios";
-import Categories from "@/components/Categories";
+import Meals from "@/components/Meals";
+import useLazyImageObserver from "@/hooks/useLazyImageObserver";
 
 export const getServerSideProps = async () => {
   try {
@@ -23,27 +24,9 @@ export const getServerSideProps = async () => {
 };
 
 export default function Recipe({ meals }: any) {
-  useEffect(() => {
-    const options = {
-      threshold: 0.5,
-    };
-    const imageObserver = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        const image = entry.target as HTMLImageElement;
-        image.src = image.dataset.src as string;
-        imageObserver.unobserve(image);
-      }
-    }, options);
-
-    document.querySelectorAll<HTMLImageElement>(".lazy-image").forEach((img) => {
-        imageObserver.observe(img);
-      });
-
-    return () => {
-      imageObserver.disconnect();
-    };
-  }, []);
+  const imageRefs = meals.map(() => useRef<HTMLImageElement>(null));
+  useLazyImageObserver(meals, imageRefs)
   return (
-    <Categories meals={meals}/>
+    <Meals meals={meals} imageRefs={imageRefs}/>
   );
 }

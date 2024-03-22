@@ -19,7 +19,7 @@ export default function About() {
             to every palate and occasion.
           </p>
           <p>
-            Whether you're a seasoned chef looking for culinary inspiration or a
+            Whether you are a seasoned chef looking for culinary inspiration or a
             newbie in the kitchen eager to learn, our platform is your go-to
             destination. From traditional classics to innovative creations, we
             aim to provide you with a culinary journey that is as enjoyable as
@@ -27,7 +27,7 @@ export default function About() {
           </p>
           <p>
             Join us in this gastronomic adventure as we share our love for food,
-            cooking tips, and the stories behind each recipe. Let's cook,
+            cooking tips, and the stories behind each recipe. Lets cook,
             create, and savor the magic of homemade meals together.
           </p>
           <p>
