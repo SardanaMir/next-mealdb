@@ -1,6 +1,4 @@
-import { useEffect, useRef } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
+import { useRef } from 'react';
 import Meals from '@/components/Meals';
 import axios from 'axios';
 import useLazyImageObserver from '@/hooks/useLazyImageObserver';

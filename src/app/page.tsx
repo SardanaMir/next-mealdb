@@ -1,9 +1,7 @@
-import Image from 'next/image'
-import styles from './page.module.scss'
-import Layout from '@/components/Layout'
+import HomePage from "@/components/HomePage";
 
-export default function Home() {
-  return (
-    <h1>Home</h1>
+export default function Home(){
+  return(
+    <HomePage/>
   )
 }
