@@ -3,7 +3,13 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import styles from "../styles/Navbar.module.scss";
 
-const navigation = [
+type NavigationProps = {
+  id: number;
+  title: string;
+  path: string;
+}
+
+const navigation: NavigationProps[] = [
     { id: 1, title: "Main", path: "/" },
     { id: 2, title: "About", path: "/" },
     { id: 3, title: "The Meal of the Day", path: "/" },

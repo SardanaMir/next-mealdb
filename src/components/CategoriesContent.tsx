@@ -1,10 +1,20 @@
 import Image from "next/image";
 import styles from "@/styles/categories.module.scss";
 
-export default function CategoriesContent({ categories }: any) {
+type TCategory = {
+  idCategory: string;
+  strCategory: string;
+  strCategoryDescription: string;
+  strCategoryThumb: string;
+};
+type CategoriesProps = {
+  categories: TCategory[]
+}
+
+export default function CategoriesContent({ categories }: CategoriesProps) {
   return (
     <main className={styles.root}>
-      {categories.map(({ idCategory, strCategory, strCategoryThumb }: any) => (
+      {categories.map(({idCategory, strCategory, strCategoryDescription, strCategoryThumb}) => (
         <div className={styles.block} key={idCategory}>
           <Image
             className={styles.image}

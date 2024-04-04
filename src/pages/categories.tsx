@@ -1,30 +1,40 @@
-import axios from "axios";
 import CategoriesContent from "@/components/CategoriesContent";
+import { getAllCategories } from "@/api/api";
+
+type TCategory = {
+  idCategory: string;
+  strCategory: string;
+  strCategoryDescription: string;
+  strCategoryThumb: string;
+};
+type CategoriesProps = {
+  categories: TCategory[]
+}
 
 export const getServerSideProps = async () => {
-  try{
-    const res = await axios("https://www.themealdb.com/api/json/v1/1/categories.php");
+  try {
+    const res = await getAllCategories();
     const data = res.data;
-    if(data && data.categories){
+    if (data && data.categories) {
       return {
         props: { categories: data.categories },
       };
-    }else{
+    } else {
       return {
         notFound: true,
       };
     }
-  }catch(error){
+  } catch (error) {
     return {
       notFound: true,
     };
   }
 };
 
-export default function Categories({categories}:any) {
+export default function Categories({ categories }: CategoriesProps) {
   return (
     <>
-      <CategoriesContent categories={categories}/>
+      <CategoriesContent categories={categories} />
     </>
   );
 }

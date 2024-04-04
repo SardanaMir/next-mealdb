@@ -1,11 +1,11 @@
 import { useRef } from "react";
-import axios from "axios";
 import Meals from "@/components/Meals";
 import useLazyImageObserver from "@/hooks/useLazyImageObserver";
+import  {getSeafoodMeals} from '@/api/api'
 
 export const getServerSideProps = async () => {
   try {
-    const res = await axios("https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood");
+    const res = await getSeafoodMeals();
     const data = res.data;
     if (data && data.meals) {
       return {
