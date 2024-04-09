@@ -1,15 +1,25 @@
-import { useRef } from "react";
-import Meals from "@/components/Meals";
-import useLazyImageObserver from "@/hooks/useLazyImageObserver";
-import  {getSeafoodMeals} from '@/api/api'
+import dynamic from 'next/dynamic';
+import { getSeafoodMeals } from "@/api/api";
+
+type Meal = {
+  idMeal: string;
+  strMeal: string;
+  strMealThumb: string;
+};
+
+type MealProps = {
+  meals: Meal[];
+};
+
+const Meals = dynamic(() => import('@/components/Meals'));
 
 export const getServerSideProps = async () => {
   try {
     const res = await getSeafoodMeals();
-    const data = res.data;
-    if (data && data.meals) {
+    const data = res.meals;
+    if (data) {
       return {
-        props: { meals: data.meals },
+        props: { meals: data },
       };
     } else {
       return {
@@ -23,10 +33,12 @@ export const getServerSideProps = async () => {
   }
 };
 
-export default function Recipe({ meals }: any) {
-  const imageRefs = meals.map(() => useRef<HTMLImageElement>(null));
-  useLazyImageObserver(meals, imageRefs)
+export default function Recipe({ meals }: MealProps) {
   return (
-    <Meals meals={meals} imageRefs={imageRefs}/>
+    <div style={{ display: "flex", width: "100vw", flexWrap: "wrap" }}>
+      {meals.map((meal: Meal) => (
+        <Meals meal={meal} key={meal.idMeal}/>
+      ))}
+    </div>
   );
 }

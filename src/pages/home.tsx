@@ -1,7 +1,4 @@
-import { useRef } from 'react';
 import Meals from '@/components/Meals';
-import axios from 'axios';
-import useLazyImageObserver from '@/hooks/useLazyImageObserver';
 import { getSeafoodMeals } from '@/api/api';
 
 type Meal ={
@@ -14,18 +11,18 @@ type HomePageProps = {
 }
 export const getServerSideProps = async () => {
   const res = await getSeafoodMeals()
-  const data:{meals: Meal[]} = res.data;
+  const data = res.meals;
   return {
     props:  { meals: data } ,
   };
 };
 
 export default function Home( { meals } : HomePageProps) {
-  // const imageRefs = meals.map(() => useRef<HTMLImageElement>(null));
-  // useLazyImageObserver(meals)
-  console.log(meals)
   return (
-    // <Meals meals={meals} />
-    <></>
+    <div style={{ display: "flex", width: "100vw", flexWrap: "wrap" }}>
+      {meals.map((meal: Meal) => (
+        <Meals meal={meal} key={meal.idMeal}/>
+      ))}
+    </div>
   );
 }

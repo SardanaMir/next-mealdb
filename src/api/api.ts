@@ -37,7 +37,7 @@ type CategoriesProps = {
   categories: TCategory[]
 }
 export const getSeafoodMeals = async () => {
-  const res = await axios.get<{ data: SeafoodMealsProps }>("https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood");
+  const res = await axios.get<{ data: SeafoodMealsProps}>("https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood");
   return res.data; 
 };
 

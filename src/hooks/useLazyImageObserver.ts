@@ -1,30 +1,26 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
-export default function useLazyImageObserver(meals: any, imageRefs: any) {
+export default function useLazyImageObserver() {
+  const imgRef = useRef<HTMLImageElement | null>(null);
+
   useEffect(() => {
-    const options = {
-      threshold: 0.5,
-    };
-    const imageObservers = imageRefs.map(() => {
-      return new IntersectionObserver(([entry], observer) => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          const image = entry.target as HTMLImageElement;
-          image.src = image.dataset.src as string;
-          observer.unobserve(image);
-        }
-      }, options);
-    });
-    imageRefs.forEach((imageRef: any, index: number) => {
-      if (imageRef.current) {
-        imageObservers[index].observe(imageRef.current);
-      }
-    });
-    return () => {
-      imageRefs.forEach((imageRef: any, index: number) => {
-        if (imageRef.current) {
-          imageObservers[index].disconnect();
+          observer.unobserve(entry.target);
         }
       });
+    });
+
+    if (imgRef.current) {
+      observer.observe(imgRef.current);
+    }
+
+    return () => {
+      if (imgRef.current) {
+        observer.unobserve(imgRef.current);
+      }
     };
-  }, [meals]);
+  }, []);
+  return { imgRef }
 }
